@@ -1,0 +1,80 @@
+#include <functional>
+#include "service.h"
+#include "tools.h"
+#include "connectionmanager.h"
+
+using namespace boost::asio::ip;
+
+bool Service::open()
+{
+	close();
+
+	try
+	{
+		acceptor.reset(new tcp::acceptor(io_service, tcp::endpoint(address(address_v4(INADDR_ANY)), port)));
+		acceptor->set_option(tcp::no_delay(true));
+		LOG_TRACE("Acceptor is set up, listening on port " << port)
+		accept(); // begin accepting new connections
+	}
+	catch (boost::system::system_error & e)
+	{
+		LOG_ERROR(e.what())
+		return false;
+	}
+
+	return true;
+}
+
+bool Service::close()
+{
+	if (acceptor && acceptor->is_open())
+	{
+		boost::system::error_code error;
+		acceptor->close(error);
+		if (!error)
+			return true;
+
+		LOG_ERROR(error.message())
+	}
+
+	return false;
+}
+
+Protocol_ptr Service::makeProtocol(Connection_ptr connection) const
+{
+	return factory->makeProtocol(connection);
+}
+
+void Service::accept()
+{
+	if (!acceptor)
+	{
+		LOG_ERROR("acceptor does not exist")
+		return;
+	}
+
+	auto connection = ConnectionManager::instance().createConnection(io_service, shared_from_this());
+	LOG_TRACE("Waiting for new connection")
+	acceptor->async_accept(connection->getSocket(), std::bind(&Service::onAccept, shared_from_this(), connection, std::placeholders::_1));
+}
+
+void Service::onAccept(Connection_ptr connection, const boost::system::error_code& error)
+{
+	if (error)
+	{
+		LOG_ERROR(error.message())
+		return;
+	}
+
+	auto remoteIP = connection->getIP();
+	if (remoteIP.empty())
+	{
+		LOG_ERROR("Corrupted connection")
+		return;
+	}
+
+	connection->establish();
+	LOG_TRACE("Connection established. Remote IP: " << remoteIP)
+
+	accept(); // wait for new connection
+}

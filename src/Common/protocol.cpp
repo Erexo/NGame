@@ -2,7 +2,7 @@
 
 void Protocol::bindWithConnection(Connection_ptr connection)
 {
-	if (connection)
+	if (this->connection)
 	{
 		LOG_ERROR("Connection already binded")
 		return;

@@ -11,7 +11,7 @@ bool Service::open()
 
 	try
 	{
-		acceptor.reset(new tcp::acceptor(io_service, tcp::endpoint(address(address_v4(INADDR_ANY)), port)));
+		acceptor.reset(new tcp::acceptor(io_service, tcp::endpoint(address::from_string("127.0.0.1"), port)));
 		acceptor->set_option(tcp::no_delay(true));
 		LOG_TRACE("Acceptor is set up, listening on port " << port)
 		accept(); // begin accepting new connections
@@ -55,7 +55,14 @@ void Service::accept()
 
 	auto connection = ConnectionManager::instance().createConnection(io_service, shared_from_this());
 	LOG_TRACE("Waiting for new connection")
-	acceptor->async_accept(connection->getSocket(), std::bind(&Service::onAccept, shared_from_this(), connection, std::placeholders::_1));
+	try
+	{
+		acceptor->async_accept(connection->getSocket(), std::bind(&Service::onAccept, shared_from_this(), connection, std::placeholders::_1));
+	}
+	catch (boost::system::system_error & e)
+	{
+		LOG_ERROR(e.what())
+	}
 }
 
 void Service::onAccept(Connection_ptr connection, const boost::system::error_code& error)

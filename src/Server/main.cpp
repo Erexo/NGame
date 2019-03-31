@@ -6,15 +6,17 @@
 
 using namespace std;
 
-int main(void)
+int main(int argc, char* argv[])
 {
 	cout << "hi_server" << endl;
 
+	uint16_t port = argc > 1 ? atoi(argv[1]) : 31463;
+
 	ServiceManager server;
+
+	server.add<Protocol>(port);
+
 	server.start();
-
-	server.add<Protocol>(7171);
-
 
 	cin.ignore();
 	return 0;

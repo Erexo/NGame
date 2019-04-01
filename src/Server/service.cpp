@@ -1,9 +1,35 @@
 #include <functional>
 #include "service.h"
 #include "tools.h"
-#include "connectionmanager.h"
 
 using namespace boost::asio::ip;
+
+// ConnectionManager
+Connection_ptr Service::createConnection()
+{
+	auto connection = std::make_shared<Connection>(io_service, shared_from_this());
+	makeProtocol(connection);
+	connections.insert(connection);\
+
+	return connection;
+}
+
+void Service::releaseConnection(Connection_ptr connection)
+{
+	// todo: close?
+	connections.erase(connection);
+}
+
+void Service::closeAll()
+{
+	for (auto& connection : connections)
+	{
+		// todo: close connections
+	}
+
+	connections.clear();
+}
+//
 
 bool Service::open()
 {
@@ -11,12 +37,13 @@ bool Service::open()
 
 	try
 	{
+		std::weak_ptr<Service> a;
 		acceptor.reset(new tcp::acceptor(io_service, tcp::endpoint(address::from_string("127.0.0.1"), port)));
 		acceptor->set_option(tcp::no_delay(true));
 		LOG_TRACE("Acceptor is set up, listening on port " << port)
 		accept(); // begin accepting new connections
 	}
-	catch (boost::system::system_error & e)
+	catch (boost::system::system_error& e)
 	{
 		LOG_ERROR(e.what())
 		return false;
@@ -53,7 +80,8 @@ void Service::accept()
 		return;
 	}
 
-	auto connection = ConnectionManager::instance().createConnection(io_service, shared_from_this());
+	auto connection = createConnection();
+
 	LOG_TRACE("Waiting for new connection")
 	try
 	{

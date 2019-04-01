@@ -12,11 +12,11 @@ public:
 	static constexpr message_size MAX_SIZE = 24590;
 	static constexpr int8_t HEADER_SIZE = sizeof(message_size);
 
-	inline message_size getPosition() { return position; }
-	inline message_size getLength()  { return length; }
+	inline message_size getPosition() const { return position; }
+	inline message_size getLength() const { return data.length; }
 
-	inline uint8_t* getLengthBuffer() { return (uint8_t*)&length; }
-	inline uint8_t* getBuffer() { return buffer; }
+	inline uint8_t* getBuffer() const { return (uint8_t*)&data; }
+	inline uint8_t* getContentBuffer() const { return getBuffer() + HEADER_SIZE; }
 
 	uint8_t getByte();
 	std::string getString();
@@ -29,8 +29,13 @@ public:
 	bool addString(const std::string& value);
 
 private:
-	uint8_t buffer[MAX_SIZE];
-	message_size length = 0;
+	struct MessageData
+	{
+		message_size length = 0;
+		uint8_t buffer[MAX_SIZE];
+	};
+
+	MessageData data;
 	message_size position = 0;
 
 	inline bool canAdd(size_t size)
@@ -40,7 +45,7 @@ private:
 
 	inline bool canRead(size_t size)
 	{
-		return position + size < length;
+		return position + size <= data.length;
 	}
 };
 
@@ -51,8 +56,9 @@ T NetworkMessage::get()
 		return 0;
 
 	T ret;
-	memcpy(&ret, buffer + position, sizeof(T));
+	memcpy(&ret, data.buffer + position, sizeof(T));
 	position += sizeof(T);
+	return ret;
 }
 
 template<typename T>
@@ -61,8 +67,8 @@ bool NetworkMessage::add(T value)
 	if (!canAdd(sizeof(T)))
 		return false;
 
-	memcpy(buffer + position, &value, sizeof(T));
+	memcpy(data.buffer + position, &value, sizeof(T));
 	position += sizeof(T);
-	length += sizeof(T);
+	data.length += sizeof(T);
 	return true;
 }

@@ -20,9 +20,6 @@
     <ClCompile Include="..\src\Server\service.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Server\connectionmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Common\networkmessage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -38,9 +35,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Server\service.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Server\connectionmanager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Common\networkmessage.h">

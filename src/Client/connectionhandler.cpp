@@ -21,6 +21,12 @@ void ConnectionHandler::connect()
 		activeConnection->getSocket().connect(tcp::endpoint(address::from_string(address), port));
 		LOG_TRACE("Connection established")
 		activeConnection->establish();
+
+		// first message
+		NetworkMessage msg;
+		msg.addByte(17);
+		msg.addString("hello");
+		activeConnection->send(msg);
 	}
 	catch (boost::system::system_error& e)
 	{

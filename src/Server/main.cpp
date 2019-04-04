@@ -3,6 +3,7 @@
 #include <boost/bind.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include "servicemanager.h"
+#include "serverprotocol.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int main(int argc, char* argv[])
 
 	ServiceManager server;
 
-	server.add<Protocol>(port);
+	server.add<ServerProtocol>(port);
 
 	server.start();
 

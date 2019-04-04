@@ -145,6 +145,7 @@
     <ClCompile Include="..\src\Common\networkmessage.cpp" />
     <ClCompile Include="..\src\Common\protocol.cpp" />
     <ClCompile Include="..\src\Server\main.cpp" />
+    <ClCompile Include="..\src\Server\serverprotocol.cpp" />
     <ClCompile Include="..\src\Server\service.cpp" />
     <ClCompile Include="..\src\Server\servicemanager.cpp" />
   </ItemGroup>
@@ -154,6 +155,7 @@
     <ClInclude Include="..\src\Common\networkmessage.h" />
     <ClInclude Include="..\src\Common\protocol.h" />
     <ClInclude Include="..\src\Common\tools.h" />
+    <ClInclude Include="..\src\Server\serverprotocol.h" />
     <ClInclude Include="..\src\Server\service.h" />
     <ClInclude Include="..\src\Server\servicemanager.h" />
   </ItemGroup>

@@ -1,5 +1,6 @@
 #include "connection.h"
 #include "tools.h"
+#include "protocol.h"
 
 std::string Connection::getIP()
 {
@@ -111,7 +112,14 @@ void Connection::parsePacket(const boost::system::error_code& error)
 		return;
 	}
 
-	// todo: read message
+	if (protocol)
+	{
+		protocol->parsePacket(message);
+	}
+	else
+	{
+		LOG_TRACE("Protocol is not connected")
+	}
 
 	try
 	{

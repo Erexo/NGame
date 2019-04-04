@@ -10,7 +10,8 @@ public:
 	Protocol() = default;
 
 	void bindWithConnection(Connection_ptr connection);
-	
-private:
+	virtual void parsePacket(NetworkMessage& msg) = 0;
+
+protected:
 	Connection_ptr connection;
 };

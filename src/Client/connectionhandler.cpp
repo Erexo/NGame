@@ -1,6 +1,7 @@
 #include "connectionhandler.h"
 #include "tools.h"
 #include "protocol.h"
+#include "clientprotocol.h"
 #include "enums.h"
 
 using namespace boost::asio::ip;
@@ -14,7 +15,7 @@ void ConnectionHandler::connect()
 	}
 
 	activeConnection = std::make_shared<Connection>(io_service);
-	auto protocol = std::make_shared<Protocol>();
+	Protocol_ptr protocol = std::make_shared<ClientProtocol>();
 	protocol->bindWithConnection(activeConnection);
 
 	try

@@ -150,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Common\connection.h" />
+    <ClInclude Include="..\src\Common\enums.h" />
     <ClInclude Include="..\src\Common\networkmessage.h" />
     <ClInclude Include="..\src\Common\protocol.h" />
     <ClInclude Include="..\src\Common\tools.h" />

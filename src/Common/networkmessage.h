@@ -14,6 +14,7 @@ public:
 
 	inline message_size getPosition() const { return position; }
 	inline message_size getLength() const { return data.length; }
+	inline void reset() { position = 0; }
 
 	inline uint8_t* getBuffer() const { return (uint8_t*)&data; }
 	inline uint8_t* getContentBuffer() const { return getBuffer() + HEADER_SIZE; }

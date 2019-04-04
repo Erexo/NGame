@@ -1,10 +1,11 @@
 #pragma once
-
+#include <boost/system/config.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 #include <unordered_set>
 #include "networkmessage.h"
 #include "tools.h"
+#include "enums.h"
 
 class Protocol;
 using Protocol_ptr = std::shared_ptr<Protocol>;
@@ -38,21 +39,24 @@ public:
 	}
 
 	Connection(boost::asio::io_service& io_service)
-		: io_service(io_service), socket(io_service)
+		: io_service(io_service), socket(io_service), state(STATE_DISCONNECTED)
 	{
 		LOG_TRACE("Connection created")
 	}
 
 	~Connection()
 	{
+		closeSocket();
 		LOG_TRACE("Connection destroyed")
 	}
 
 	inline boost::asio::ip::tcp::socket& getSocket() { return socket; }
+	inline ConnectionState getState() { return state; }
 
 	std::string getIP();
 	void establish();
 	void send(const NetworkMessage& msg);
+	void close();
 
 private:
 	boost::asio::io_service& io_service;
@@ -60,14 +64,14 @@ private:
 	std::weak_ptr<ConnectionManager> connectionManager;
 	Protocol_ptr protocol;
 	NetworkMessage message;
-	bool isEstablished = false;
+	ConnectionState state;
 
-	void close();
+	void closeSocket();
+
 	void parseHeader(const boost::system::error_code& error);
 	void parsePacket(const boost::system::error_code& error);
 
 	void sendCallback(const boost::system::error_code& error);
-
 	friend class Protocol;
 };
 

@@ -1,12 +1,13 @@
 #include "connectionhandler.h"
 #include "tools.h"
 #include "protocol.h"
+#include "enums.h"
 
 using namespace boost::asio::ip;
 
 void ConnectionHandler::connect()
 {
-	if (state != Disconnected)
+	if (activeConnection && activeConnection->getState() == STATE_CONNECTED)
 	{
 		LOG_ERROR("Already connected")
 		return;
@@ -21,16 +22,13 @@ void ConnectionHandler::connect()
 		activeConnection->getSocket().connect(tcp::endpoint(address::from_string(address), port));
 		LOG_TRACE("Connection established")
 		activeConnection->establish();
-
-		// first message
-		NetworkMessage msg;
-		msg.addByte(17);
-		msg.addString("hello");
-		activeConnection->send(msg);
 	}
 	catch (boost::system::system_error& e)
 	{
 		LOG_ERROR(e.what())
+		activeConnection->close();
 		return;
 	}
+
+	io_service.run();
 }

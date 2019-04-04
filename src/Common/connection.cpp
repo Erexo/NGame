@@ -16,23 +16,23 @@ std::string Connection::getIP()
 
 void Connection::establish()
 {
-	if (isEstablished)
+	if (state != STATE_DISCONNECTED)
 	{
 		LOG_TRACE("Connection already established")
 		return;
 	}
 
-	isEstablished = true;
+	state = STATE_CONNECTING;
 
 	try
 	{
-		boost::asio::async_read(socket, boost::asio::buffer(message.getBuffer(), NetworkMessage::HEADER_SIZE),
+		socket.async_receive(boost::asio::buffer(message.getBuffer(), NetworkMessage::HEADER_SIZE),
 			std::bind(&Connection::parseHeader, shared_from_this(), std::placeholders::_1));
 	}
 	catch (boost::system::system_error& e)
 	{
 		LOG_ERROR(e.what())
-		// todo: close
+		close();
 	}
 }
 
@@ -43,6 +43,26 @@ void Connection::close()
 	{
 		managerLock->releaseConnection(shared_from_this());
 	}
+
+	closeSocket();
+}
+
+void Connection::closeSocket()
+{
+	state = STATE_CLOSED;
+
+	if (socket.is_open())
+	{
+		try
+		{
+			socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both);
+			socket.close();
+		}
+		catch (boost::system::system_error & e)
+		{
+			LOG_ERROR(e.what())
+		}
+	}
 }
 
 void Connection::parseHeader(const boost::system::error_code& error)
@@ -50,7 +70,17 @@ void Connection::parseHeader(const boost::system::error_code& error)
 	if (error)
 	{
 		LOG_ERROR(error.message())
-		// todo: kill?
+		close();
+		return;
+	}
+
+	switch (state)
+	{
+	case STATE_CONNECTING:
+		state = STATE_CONNECTED;
+		break;
+	case STATE_DISCONNECTED:
+	case STATE_CLOSED:
 		return;
 	}
 
@@ -60,28 +90,28 @@ void Connection::parseHeader(const boost::system::error_code& error)
 
 	try
 	{
-		boost::asio::async_read(socket, boost::asio::buffer(message.getContentBuffer(), message.getLength()),
+		socket.async_receive(boost::asio::buffer(message.getContentBuffer(), message.getLength()),
 			std::bind(&Connection::parsePacket, shared_from_this(), std::placeholders::_1));
 	}
 	catch (boost::system::system_error& e)
 	{
 		LOG_ERROR(e.what())
-		// todo: kill?
+		close();
 	}
 }
 
 void Connection::parsePacket(const boost::system::error_code& error)
 {
+	message.reset();
+
 	if (error)
 	{
 		LOG_ERROR(error.message())
-		// todo: kill?
+		close();
 		return;
 	}
 
-	auto opcode = message.getByte();
-	auto data = message.getString();
-	LOG_TRACE("Packet parsed")
+	// todo: read message
 
 	try
 	{
@@ -91,13 +121,22 @@ void Connection::parsePacket(const boost::system::error_code& error)
 	catch (boost::system::system_error& e)
 	{
 		LOG_ERROR(e.what())
+		close();
 	}
 }
 
 void Connection::send(const NetworkMessage& msg)
 {
-	boost::asio::async_write(socket, boost::asio::buffer(msg.getBuffer(), msg.getLength() + NetworkMessage::HEADER_SIZE),
+	try
+	{
+		boost::asio::async_write(socket, boost::asio::buffer(msg.getBuffer(), msg.getLength() + NetworkMessage::HEADER_SIZE),
 		std::bind(&Connection::sendCallback, shared_from_this(), std::placeholders::_1));
+	}
+	catch (boost::system::system_error& e)
+	{
+		LOG_ERROR(e.what())
+		close();
+	}
 }
 
 void Connection::sendCallback(const boost::system::error_code& error)
@@ -105,8 +144,7 @@ void Connection::sendCallback(const boost::system::error_code& error)
 	if (error)
 	{
 		LOG_ERROR(error.message())
-			// todo: kill?
-			return;
+		return;
 	}
 
 	LOG_TRACE("Message sent")

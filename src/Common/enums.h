@@ -1,0 +1,9 @@
+#pragma once
+
+enum ConnectionState
+{
+	STATE_DISCONNECTED,
+	STATE_CONNECTING,
+	STATE_CONNECTED,
+	STATE_CLOSED
+};

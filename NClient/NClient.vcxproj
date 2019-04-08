@@ -72,14 +72,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_ROOT);$(SolutionDir)src\Common;$(SolutionDir)src\$(ProjectName)</IncludePath>
-    <LibraryPath>$(BOOST_ROOT)\lib32;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)src\Common;$(SolutionDir)src\$(ProjectName)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(BOOST_ROOT);$(SolutionDir)src\Common;$(SolutionDir)src\$(ProjectName)</IncludePath>
-    <LibraryPath>$(BOOST_ROOT)\lib64;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)src\Common;$(SolutionDir)src\$(ProjectName)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -88,9 +96,12 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>__ERROR_LOG__;__TRACE_LOG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
@@ -102,9 +113,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
       <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
@@ -118,12 +132,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
     </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -133,12 +152,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
     </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
+    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Client\clientprotocol.cpp" />
@@ -147,6 +171,7 @@
     <ClCompile Include="..\src\Common\connection.cpp" />
     <ClCompile Include="..\src\Common\networkmessage.cpp" />
     <ClCompile Include="..\src\Common\protocol.cpp" />
+    <ClCompile Include="$(NGAME_SDK)\gl3w\gl3w.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Client\clientprotocol.h" />

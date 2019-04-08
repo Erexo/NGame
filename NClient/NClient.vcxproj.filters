@@ -29,6 +29,9 @@
     <ClCompile Include="..\src\Client\clientprotocol.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="$(NGAME_SDK)\gl3w\gl3w.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Common\connection.h">

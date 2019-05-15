@@ -168,19 +168,16 @@
     <ClCompile Include="..\src\Client\clientprotocol.cpp" />
     <ClCompile Include="..\src\Client\connectionhandler.cpp" />
     <ClCompile Include="..\src\Client\main.cpp" />
-    <ClCompile Include="..\src\Common\connection.cpp" />
-    <ClCompile Include="..\src\Common\networkmessage.cpp" />
-    <ClCompile Include="..\src\Common\protocol.cpp" />
     <ClCompile Include="$(NGAME_SDK)\gl3w\gl3w.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Client\clientprotocol.h" />
     <ClInclude Include="..\src\Client\connectionhandler.h" />
-    <ClInclude Include="..\src\Common\connection.h" />
-    <ClInclude Include="..\src\Common\enums.h" />
-    <ClInclude Include="..\src\Common\networkmessage.h" />
-    <ClInclude Include="..\src\Common\protocol.h" />
-    <ClInclude Include="..\src\Common\tools.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.vcxproj">
+      <Project>{69b8cba5-eddb-4968-b667-0796e861e341}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

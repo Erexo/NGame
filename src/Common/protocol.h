@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <boost/enable_shared_from_this.hpp>
 #include "connection.h"
 #include "tools.h"

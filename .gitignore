@@ -1,5 +1,10 @@
 .vs
-bin
-logs
-obj
+*.json
+*.filters
+*.user
+
+vc16/bin
+vc16/logs
+vc16/obj
 NGame-sdk
+projects

@@ -70,24 +70,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)src\Common;$(SolutionDir)src\$(ProjectName)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)src\Common;$(SolutionDir)src\$(ProjectName)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)_$(Platform)\</OutDir>
-    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)_$(Platform)\</IntDir>
+    <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -96,7 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>__ERROR_LOG__;__TRACE_LOG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -104,7 +104,7 @@
       <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
-      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -113,7 +113,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,7 +121,7 @@
       <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <BuildLog>
-      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,7 +132,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,7 +141,7 @@
       <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
     </Link>
     <BuildLog>
-      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +152,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +161,7 @@
       <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
     </Link>
     <BuildLog>
-      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration)_$(Platform).log</Path>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -175,7 +175,7 @@
     <ClInclude Include="..\src\Client\connectionhandler.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.vcxproj">
+    <ProjectReference Include="Common.vcxproj">
       <Project>{69b8cba5-eddb-4968-b667-0796e861e341}</Project>
     </ProjectReference>
   </ItemGroup>

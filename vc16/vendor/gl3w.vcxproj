@@ -12,19 +12,19 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{067CD9AC-1D87-4630-B7D5-26A92C42B2BA}</ProjectGuid>
-    <RootNamespace>NClient</RootNamespace>
+    <ProjectGuid>{A5BE06B9-DEA8-4137-A68A-9C439CD555FD}</ProjectGuid>
+    <RootNamespace>gl3w</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -45,8 +45,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)obj\$(ProjectName)-$(Configuration)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)src\Common;$(SolutionDir)src\$(ProjectName)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(ProjectName)-$(Configuration)\</OutDir>
@@ -58,17 +56,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <PreprocessorDefinitions>__ERROR_LOG__;__TRACE_LOG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <BuildLog>
-      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
-    </BuildLog>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -78,35 +70,21 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <BuildLog>
-      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
-    </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Client\clientprotocol.cpp" />
-    <ClCompile Include="..\src\Client\connectionhandler.cpp" />
-    <ClCompile Include="..\src\Client\main.cpp" />
+    <ClCompile Include="$(NGAME_SDK)\gl3w\gl3w.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Client\clientprotocol.h" />
-    <ClInclude Include="..\src\Client\connectionhandler.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="Common.vcxproj">
-      <Project>{69b8cba5-eddb-4968-b667-0796e861e341}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\gl3w.vcxproj">
-      <Project>{a5be06b9-dea8-4137-a68a-9c439cd555fd}</Project>
-    </ProjectReference>
+    <ClInclude Include="$(NGAME_SDK)\gl3w\include\GL\gl3w.h" />
+    <ClInclude Include="$(NGAME_SDK)\gl3w\include\GL\glcorearb.h" />
+    <ClInclude Include="$(NGAME_SDK)\gl3w\include\KHR\khrplatform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

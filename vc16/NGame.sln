@@ -9,6 +9,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NClient", "NClient.vcxproj"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common.vcxproj", "{69B8CBA5-EDDB-4968-B667-0796E861E341}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "vendor", "vendor", "{307063FE-8EC5-45A1-891E-74B4C305D8BD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gl3w", "vendor\gl3w.vcxproj", "{A5BE06B9-DEA8-4137-A68A-9C439CD555FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -27,9 +31,16 @@ Global
 		{69B8CBA5-EDDB-4968-B667-0796E861E341}.Debug|x64.Build.0 = Debug|x64
 		{69B8CBA5-EDDB-4968-B667-0796E861E341}.Release|x64.ActiveCfg = Release|x64
 		{69B8CBA5-EDDB-4968-B667-0796E861E341}.Release|x64.Build.0 = Release|x64
+		{A5BE06B9-DEA8-4137-A68A-9C439CD555FD}.Debug|x64.ActiveCfg = Debug|x64
+		{A5BE06B9-DEA8-4137-A68A-9C439CD555FD}.Debug|x64.Build.0 = Debug|x64
+		{A5BE06B9-DEA8-4137-A68A-9C439CD555FD}.Release|x64.ActiveCfg = Release|x64
+		{A5BE06B9-DEA8-4137-A68A-9C439CD555FD}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A5BE06B9-DEA8-4137-A68A-9C439CD555FD} = {307063FE-8EC5-45A1-891E-74B4C305D8BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F0D7BCD9-C53A-4EA7-94E7-14BCF5D7CBEB}

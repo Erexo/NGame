@@ -1,9 +1,11 @@
 workspace "NGame"
 --[[ GENERAL CONFIGURATION ]]--
-	action = (_ACTION == nil) and "" or _ACTION;
+	action = (_ACTION == nil) and "" or _ACTION
+	projectPath = "projects/" .. action
+	
 	configurations { "Debug", "Release" }
 	platforms "x64"
-	location ("projects/" .. action)
+	location (projectPath)
 	
 	targetdir 	 "%{prj.location}/bin/%{prj.name}-%{cfg.buildcfg}"
 	objdir 		 "%{prj.location}/obj/%{prj.name}-%{cfg.buildcfg}"	
@@ -58,7 +60,8 @@ workspace "NGame"
 	
 	libs = 
 	{
-		["boost"] 	= sdk .. "/boost_1_70/lib64"
+		["boost"] 	= sdk .. "/boost_1_70/lib64",
+		["GLFW"] 	= sdk .. "/GLFW/lib64"
 	}
 	
 	if not sdk then
@@ -79,8 +82,6 @@ project "Common"
 
 	includedirs
 	{
-		includes["gl3w"],
-		includes["GLFW"],
 		includes["boost"]
 	}
 
@@ -120,21 +121,48 @@ project "NClient"
 	{
 		"src/Client/**.h",
 		"src/Client/**.cpp"
-		-- gl3w.c
 	}
 	
 	includedirs
 	{
 		includes["boost"],
+		includes["gl3w"],
+		includes["GLFW"],
 		"src/Common"
 	}
 	
 	libdirs 
 	{
-		libs["boost"]
+		libs["boost"],
+		libs["GLFW"]
 	}
 	
 	links
 	{
-		"Common"
+		"Common",
+		"gl3w",
+		"glfw3.lib"
+	}
+	
+--[[ VENDORS ]]--
+project "gl3w"
+	location (projectPath .. "/vendor")
+	targetdir 	 "%{prj.location}/../bin/%{prj.name}-%{cfg.buildcfg}"
+	objdir 		 "%{prj.location}/../obj/%{prj.name}-%{cfg.buildcfg}"	
+	
+	kind "StaticLib"
+	language "C++"
+	cppdialect "C++17"
+	
+	files
+	{
+		(includes["gl3w"] .. "/../gl3w.c"),
+		(includes["gl3w"] .. "/GL/gl3w.h"),
+		(includes["gl3w"] .. "/GL/glcorearb.h"),
+		(includes["gl3w"] .. "/KHR/khrplatform.h")
+	}
+
+	includedirs
+	{
+		includes["gl3w"]
 	}

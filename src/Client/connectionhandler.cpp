@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "connectionhandler.h"
 #include "tools.h"
 #include "protocol.h"

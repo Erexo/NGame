@@ -1,7 +1,4 @@
-#include <iostream>
-#include <boost/asio.hpp>
-#include <boost/bind.hpp>
-#include <boost/enable_shared_from_this.hpp>
+#include "pch.h"
 #include "servicemanager.h"
 #include "serverprotocol.h"
 

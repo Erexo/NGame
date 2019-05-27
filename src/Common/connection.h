@@ -1,9 +1,5 @@
 #pragma once
 
-#include <boost/system/config.hpp>
-#include <boost/enable_shared_from_this.hpp>
-#include <boost/asio.hpp>
-#include <unordered_set>
 #include "networkmessage.h"
 #include "tools.h"
 #include "enums.h"

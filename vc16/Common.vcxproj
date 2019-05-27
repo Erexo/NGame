@@ -58,6 +58,9 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NG_WINDOWS;__ERROR_LOG__;__TRACE_LOG__;NG_DEBUG;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -74,6 +77,9 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NG_WINDOWS;NG_RELEASE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,12 +91,14 @@
   <ItemGroup>
     <ClCompile Include="..\src\Common\connection.cpp" />
     <ClCompile Include="..\src\Common\networkmessage.cpp" />
+    <ClCompile Include="..\src\Common\pch.cpp" />
     <ClCompile Include="..\src\Common\protocol.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Common\connection.h" />
     <ClInclude Include="..\src\Common\enums.h" />
     <ClInclude Include="..\src\Common\networkmessage.h" />
+    <ClInclude Include="..\src\Common\pch.h" />
     <ClInclude Include="..\src\Common\protocol.h" />
     <ClInclude Include="..\src\Common\tools.h" />
   </ItemGroup>

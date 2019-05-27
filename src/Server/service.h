@@ -1,7 +1,5 @@
 #pragma once
 
-#include <boost/asio.hpp>
-#include <memory>
 #include "protocol.h"
 
 class Service;

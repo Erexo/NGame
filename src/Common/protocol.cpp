@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "protocol.h"
 
 void Protocol::bindWithConnection(Connection_ptr connection)

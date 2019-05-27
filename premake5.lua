@@ -73,6 +73,9 @@ project "Common"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
+
+	pchheader "pch.h"
+	pchsource "src/Common/pch.cpp"
 	
 	files
 	{

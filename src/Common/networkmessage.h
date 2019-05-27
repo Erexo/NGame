@@ -1,9 +1,5 @@
 #pragma once
 
-#include <cstdint>
-#include <cassert>
-
-
 class NetworkMessage
 {
 using message_size = uint16_t;

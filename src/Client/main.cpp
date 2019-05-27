@@ -1,7 +1,7 @@
-#include <iostream>
+#include "pch.h"
 #include "connectionhandler.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	std::cout << "hi_client" << std::endl;
 

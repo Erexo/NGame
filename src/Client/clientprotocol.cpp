@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "clientprotocol.h"
 #include "enums.h"
 #include "tools.h"

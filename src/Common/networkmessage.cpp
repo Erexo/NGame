@@ -1,4 +1,4 @@
-#include <string>
+#include "pch.h"
 #include "networkmessage.h"
 
 uint8_t NetworkMessage::getByte()

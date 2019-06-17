@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "service.h"
-#include "tools.h"
 
 using namespace boost::asio::ip;
 
@@ -36,12 +35,12 @@ bool Service::open()
 	{
 		acceptor.reset(new tcp::acceptor(io_service, tcp::endpoint(address::from_string("127.0.0.1"), port)));
 		acceptor->set_option(tcp::no_delay(true));
-		LOG_TRACE("Acceptor is set up, listening on port " << port)
+		N_TRACE("Acceptor is set up, listening on port {0}", port);
 		accept(); // begin accepting new connections
 	}
 	catch (boost::system::system_error& e)
 	{
-		LOG_ERROR(e.what())
+		N_ERROR(e.what());
 		return false;
 	}
 
@@ -57,7 +56,7 @@ bool Service::close()
 		if (!error)
 			return true;
 
-		LOG_ERROR(error.message())
+		N_ERROR(error.message());
 	}
 
 	return false;
@@ -72,20 +71,20 @@ void Service::accept()
 {
 	if (!acceptor)
 	{
-		LOG_ERROR("acceptor does not exist")
+		N_WARN("acceptor does not exist");
 		return;
 	}
 
 	auto connection = createConnection();
 
-	LOG_TRACE("Waiting for new connection")
+	N_DEBUG("Waiting for new connection");
 	try
 	{
 		acceptor->async_accept(connection->getSocket(), std::bind(&Service::onAccept, shared_from_this(), connection, std::placeholders::_1));
 	}
 	catch (boost::system::system_error & e)
 	{
-		LOG_ERROR(e.what())
+		N_ERROR(e.what());
 		connection->close();
 	}
 }
@@ -94,7 +93,7 @@ void Service::onAccept(Connection_ptr connection, const boost::system::error_cod
 {
 	if (error)
 	{
-		LOG_ERROR(error.message())
+		N_ERROR(error.message());
 		connection->close();
 		return;
 	}
@@ -102,13 +101,13 @@ void Service::onAccept(Connection_ptr connection, const boost::system::error_cod
 	auto remoteIP = connection->getIP();
 	if (remoteIP.empty())
 	{
-		LOG_ERROR("Corrupted connection")
+		N_WARN("Corrupted connection");
 		connection->close();
 		return;
 	}
 
 	connection->establish();
-	LOG_TRACE("Connection established. Remote IP: " << remoteIP)
+	N_DEBUG("Connection established. Remote IP: {0}", remoteIP);
 
 	accept(); // wait for new connection
 }

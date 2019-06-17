@@ -13,3 +13,6 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/bind.hpp>
 #include <boost/asio.hpp>
+
+// local
+#include "Log.h"

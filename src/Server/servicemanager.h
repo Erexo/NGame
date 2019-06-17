@@ -1,7 +1,6 @@
 #pragma once
 
 #include "service.h"
-#include "tools.h"
 
 class ServiceManager
 {
@@ -34,7 +33,7 @@ bool ServiceManager::add(uint16_t port)
 		return false;
 
 	Service_ptr service = std::make_shared<Service>(io_service, port, std::make_shared<ProtocolFactory<ProtocolT>>());
-	LOG_TRACE("New service created")
+	N_DEBUG("New service created");
 	service->open();
 	services[port] = service;
 	return true;

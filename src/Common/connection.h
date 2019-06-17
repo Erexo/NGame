@@ -1,7 +1,6 @@
 #pragma once
 
 #include "networkmessage.h"
-#include "tools.h"
 #include "enums.h"
 
 class Protocol;
@@ -43,13 +42,13 @@ public:
 		readTimer(io_service), writeTimer(io_service),
 		state(STATE_DISCONNECTED)
 	{
-		LOG_TRACE("Connection created")
+		N_DEBUG("Connection created");
 	}
 
 	~Connection()
 	{
 		closeSocket();
-		LOG_TRACE("Connection destroyed")
+		N_DEBUG("Connection destroyed");
 	}
 
 	inline boost::asio::ip::tcp::socket& getSocket() { return socket; }

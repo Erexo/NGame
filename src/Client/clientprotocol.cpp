@@ -1,17 +1,16 @@
 #include "pch.h"
 #include "clientprotocol.h"
 #include "enums.h"
-#include "tools.h"
 
 void ClientProtocol::parsePacket(NetworkMessage& msg)
 {
 	auto opcode = (ServerOpcode)msg.getByte();
-	LOG_TRACE("Received opcode [" << +opcode << "] from the server")
+	N_DEBUG("Received opcode [{0}] from the server", opcode);
 
 	switch (opcode)
 	{
 	case SERVER_BLANK:
-		LOG_TRACE("Blank message was detected")
+		N_TRACE("Blank message was detected");
 		break;
 	case SERVER_DISCONNECT:
 		connection->close();
@@ -22,7 +21,7 @@ void ClientProtocol::parsePacket(NetworkMessage& msg)
 		break;
 
 	default:
-		LOG_ERROR("Unknown message opcode: " << +opcode)
+		N_WARN("Unknown message opcode: {0}", +opcode);
 		break;
 	}
 }

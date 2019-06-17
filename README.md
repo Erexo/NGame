@@ -7,5 +7,6 @@ NGame is a free and open-source game written in C++.
 * [Boost](https://www.boost.org/)
 * [gl3w](https://github.com/skaslev/gl3w)
 * [GLFW](https://www.glfw.org/download.html)
+* [spdlog](https://github.com/gabime/spdlog)
 
 ===============

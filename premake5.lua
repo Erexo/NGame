@@ -55,7 +55,8 @@ workspace "NGame"
 	{
 		["boost"] 	= sdk .. "/boost_1_70",
 		["gl3w"]	= sdk .. "/gl3w/include",
-		["GLFW"]	= sdk .. "/GLFW/include"
+		["GLFW"]	= sdk .. "/GLFW/include",
+		["spdlog"]	= sdk .. "/spdlog/include"
 	}
 	
 	libs = 
@@ -85,7 +86,8 @@ project "Common"
 
 	includedirs
 	{
-		includes["boost"]
+		includes["boost"],
+		includes["spdlog"]
 	}
 
 project "NServer"
@@ -102,6 +104,7 @@ project "NServer"
 	includedirs
 	{
 		includes["boost"],
+		includes["spdlog"],
 		"src/Common"
 	}
 	
@@ -131,6 +134,7 @@ project "NClient"
 		includes["boost"],
 		includes["gl3w"],
 		includes["GLFW"],
+		includes["spdlog"],
 		"src/Common"
 	}
 	

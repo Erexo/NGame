@@ -50,7 +50,7 @@ public:
 	{
 		auto protocol = std::make_shared<ProtocolT>();
 		protocol->bindWithConnection(connection);
-		LOG_TRACE("Protocol created")
+		N_DEBUG("Protocol created");
 		return protocol;
 	}
 };

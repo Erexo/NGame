@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "connectionhandler.h"
-#include "tools.h"
 #include "protocol.h"
 #include "clientprotocol.h"
 #include "enums.h"
@@ -11,7 +10,7 @@ void ConnectionHandler::connect()
 {
 	if (activeConnection && activeConnection->getState() == STATE_CONNECTED)
 	{
-		LOG_ERROR("Already connected")
+		N_WARN("Already connected");
 		return;
 	}
 
@@ -22,12 +21,12 @@ void ConnectionHandler::connect()
 	try
 	{
 		activeConnection->getSocket().connect(tcp::endpoint(address::from_string(address), port));
-		LOG_TRACE("Connection established")
+		N_DEBUG("Connection established");
 		activeConnection->establish();
 	}
 	catch (boost::system::system_error& e)
 	{
-		LOG_ERROR(e.what())
+		N_ERROR(e.what());
 		activeConnection->close();
 		return;
 	}

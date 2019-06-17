@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "connection.h"
-#include "tools.h"
 #include "protocol.h"
 
 std::string Connection::getIP()
@@ -9,7 +8,7 @@ std::string Connection::getIP()
 	auto endpoint = socket.remote_endpoint(error);
 	if (error)
 	{
-		LOG_ERROR(error.message())
+		N_ERROR(error.message());
 		return {};
 	}
 
@@ -20,7 +19,7 @@ void Connection::establish()
 {
 	if (state != STATE_DISCONNECTED)
 	{
-		LOG_TRACE("Connection already established")
+		N_WARN("Connection already established");
 		return;
 	}
 
@@ -35,7 +34,7 @@ void Connection::establish()
 	}
 	catch (boost::system::system_error& e)
 	{
-		LOG_ERROR(e.what())
+		N_ERROR(e.what());
 		close();
 	}
 }
@@ -63,7 +62,7 @@ void Connection::closeSocket()
 		}
 		catch (boost::system::system_error & e)
 		{
-			LOG_ERROR(e.what())
+			N_ERROR(e.what());
 		}
 	}
 }
@@ -73,7 +72,7 @@ void Connection::parseHeader(const boost::system::error_code& error)
 	readTimer.cancel();
 	if (error)
 	{
-		LOG_ERROR(error.message())
+		N_ERROR(error.message());
 		close();
 		return;
 	}
@@ -90,7 +89,7 @@ void Connection::parseHeader(const boost::system::error_code& error)
 
 	// todo: validate message
 
-	LOG_TRACE("Header parsed, size=" << message.getLength())
+	N_DEBUG("Header parsed, size={0}", message.getLength());
 
 	try
 	{
@@ -101,7 +100,7 @@ void Connection::parseHeader(const boost::system::error_code& error)
 	}
 	catch (boost::system::system_error& e)
 	{
-		LOG_ERROR(e.what())
+		N_ERROR(e.what());
 		close();
 	}
 }
@@ -113,7 +112,7 @@ void Connection::parsePacket(const boost::system::error_code& error)
 
 	if (error)
 	{
-		LOG_ERROR(error.message())
+		N_ERROR(error.message());
 		close();
 		return;
 	}
@@ -124,7 +123,7 @@ void Connection::parsePacket(const boost::system::error_code& error)
 	}
 	else
 	{
-		LOG_TRACE("Protocol is not connected")
+		N_WARN("Protocol is not connected");
 	}
 
 	try
@@ -136,7 +135,7 @@ void Connection::parsePacket(const boost::system::error_code& error)
 	}
 	catch (boost::system::system_error& e)
 	{
-		LOG_ERROR(e.what())
+		N_ERROR(e.what());
 		close();
 	}
 }
@@ -152,7 +151,7 @@ void Connection::send(const NetworkMessage& msg)
 	}
 	catch (boost::system::system_error& e)
 	{
-		LOG_ERROR(e.what())
+		N_ERROR(e.what());
 		close();
 	}
 }
@@ -162,17 +161,22 @@ void Connection::sendCallback(const boost::system::error_code& error)
 	writeTimer.cancel();
 	if (error)
 	{
-		LOG_ERROR(error.message())
+		N_ERROR(error.message());
 		return;
 	}
 
-	LOG_TRACE("Message sent")
+	N_DEBUG("Message sent");
 }
 
 void Connection::handleTimeout(std::weak_ptr<Connection> connection, const boost::system::error_code& error)
 {
 	if (error == boost::asio::error::operation_aborted)
 		return;
+
+	if (auto conn = connection.lock())
+	{
+		N_DEBUG("Timeout on connection with IP: {0}", conn->getIP());
+	}
 
 	if (auto conn = connection.lock())
 		conn->close();

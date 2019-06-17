@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "servicemanager.h"
-#include "tools.h"
 
 bool ServiceManager::start()
 {
 	if (running)
 		return false;
 
-	LOG_TRACE("Service manager is running")
+	N_DEBUG("Service manager is started");
 	io_service.run();
 
 	return true;
@@ -20,7 +19,7 @@ bool ServiceManager::stop()
 
 	// todo: shutdown services
 
-	LOG_TRACE("Service manager stopped")
+	N_DEBUG("Service manager stopped");
 	services.clear();
 
 	return true;

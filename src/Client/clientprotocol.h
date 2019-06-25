@@ -1,13 +1,13 @@
 #pragma once
 
-#include "protocol.h"
+#include <Ntity/NtNet/protocol.h>
 
-class ClientProtocol : public Protocol
+class ClientProtocol : public Ntity::NtNet::Protocol
 {
 public:
-	virtual void parsePacket(NetworkMessage& msg) override;
+	virtual void parsePacket(Ntity::NtNet::NetworkMessage& msg) override;
 
 private:
-	void parseDisplayMessage(NetworkMessage& msg);
+	void parseDisplayMessage(Ntity::NtNet::NetworkMessage& msg);
 };
 

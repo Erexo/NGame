@@ -1,27 +1,30 @@
 #pragma once
 
-#include "spdlog/spdlog.h"
+#include <spdlog/spdlog.h>
 
-class Log
+namespace Ntity
 {
-public:
-	enum level
+	class Log
 	{
-		trace,
-		debug,
-		info,
-		warn,
-		error,
-		fatal,
-		off
+	public:
+		enum level
+		{
+			trace,
+			debug,
+			info,
+			warn,
+			error,
+			fatal,
+			off
+		};
+
+		static int Init(level level = level::trace);
+		static int SetLevel(level level);
+
+	private:
+		static spdlog::level::level_enum mapLevel(level level);
 	};
-
-	static int Init(level level = level::trace);
-	static int SetLevel(level level);
-
-private:
-	static spdlog::level::level_enum mapLevel(level level);
-};
+}
 
 #define N_TRACE(...)	spdlog::trace(__VA_ARGS__)
 #define N_DEBUG(...)	spdlog::debug(__VA_ARGS__)

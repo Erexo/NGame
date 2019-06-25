@@ -1,14 +1,13 @@
-#include "pch.h"
+#include <Ntity/pch.h>
 #include "connectionhandler.h"
-#include "protocol.h"
 #include "clientprotocol.h"
-#include "enums.h"
 
+using namespace Ntity::NtNet;
 using namespace boost::asio::ip;
 
 void ConnectionHandler::connect()
 {
-	if (activeConnection && activeConnection->getState() == STATE_CONNECTED)
+	if (activeConnection && activeConnection->getState() == ConnectionState::CONNECTED)
 	{
 		N_WARN("Already connected");
 		return;

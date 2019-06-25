@@ -59,8 +59,10 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include;$(ProjectDir)..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>Ntity/pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -79,8 +81,10 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include;$(ProjectDir)..\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>Ntity/pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -96,18 +100,16 @@
   <ItemGroup>
     <ClCompile Include="..\src\Client\clientprotocol.cpp" />
     <ClCompile Include="..\src\Client\connectionhandler.cpp" />
-    <ClCompile Include="..\src\Client\main.cpp" />
+    <ClCompile Include="..\src\Client\nclient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Client\clientprotocol.h" />
     <ClInclude Include="..\src\Client\connectionhandler.h" />
+    <ClInclude Include="..\src\Client\nclient.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Common.vcxproj">
-      <Project>{69b8cba5-eddb-4968-b667-0796e861e341}</Project>
-    </ProjectReference>
-    <ProjectReference Include="vendor\gl3w.vcxproj">
-      <Project>{a5be06b9-dea8-4137-a68a-9c439cd555fd}</Project>
+    <ProjectReference Include="Ntity.vcxproj">
+      <Project>{75c09e5a-896e-4988-9bd4-d97c59c2d89e}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

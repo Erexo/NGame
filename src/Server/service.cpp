@@ -1,6 +1,7 @@
-#include "pch.h"
+#include <Ntity/pch.h>
 #include "service.h"
 
+using namespace Ntity::NtNet;
 using namespace boost::asio::ip;
 
 /// ConnectionManager
@@ -35,6 +36,7 @@ bool Service::open()
 	{
 		acceptor.reset(new tcp::acceptor(io_service, tcp::endpoint(address::from_string("127.0.0.1"), port)));
 		acceptor->set_option(tcp::no_delay(true));
+
 		N_TRACE("Acceptor is set up, listening on port {0}", port);
 		accept(); // begin accepting new connections
 	}

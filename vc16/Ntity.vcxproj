@@ -12,8 +12,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{69B8CBA5-EDDB-4968-B667-0796E861E341}</ProjectGuid>
-    <RootNamespace>Common</RootNamespace>
+    <ProjectGuid>{75C09E5A-896E-4988-9BD4-D97C59C2D89E}</ProjectGuid>
+    <RootNamespace>Ntity</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -56,16 +56,19 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(NGAME_SDK)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>N_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\boost_1_70;$(NGAME_SDK)\spdlog\include;$(ProjectDir)..\src</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Ntity/pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
     </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
+    </BuildLog>
+    <Lib>
+      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -75,33 +78,48 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\boost_1_70;$(NGAME_SDK)\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>N_WINDOWS;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\GLFW\include;$(NGAME_SDK)\gl3w\include;$(NGAME_SDK)\boost_1_70;$(NGAME_SDK)\spdlog\include;$(ProjectDir)..\src</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeaderFile>Ntity/pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
     </Link>
+    <BuildLog>
+      <Path>$(SolutionDir)logs\$(ProjectName)-$(Configuration).log</Path>
+    </BuildLog>
+    <Lib>
+      <AdditionalLibraryDirectories>$(NGAME_SDK)\GLFW\lib$(PlatformArchitecture);$(NGAME_SDK)\boost_1_70\lib$(PlatformArchitecture)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Common\connection.cpp" />
-    <ClCompile Include="..\src\Common\Log.cpp" />
-    <ClCompile Include="..\src\Common\networkmessage.cpp" />
-    <ClCompile Include="..\src\Common\pch.cpp" />
-    <ClCompile Include="..\src\Common\protocol.cpp" />
+    <ClInclude Include="..\src\Ntity\engine.h" />
+    <ClInclude Include="..\src\Ntity\Graphics\renderingengine.h" />
+    <ClInclude Include="..\src\Ntity\log.h" />
+    <ClInclude Include="..\src\Ntity\Ntity.h" />
+    <ClInclude Include="..\src\Ntity\NtNet\connection.h" />
+    <ClInclude Include="..\src\Ntity\NtNet\enums.h" />
+    <ClInclude Include="..\src\Ntity\NtNet\networkmessage.h" />
+    <ClInclude Include="..\src\Ntity\NtNet\protocol.h" />
+    <ClInclude Include="..\src\Ntity\NtNet\serverengine.h" />
+    <ClInclude Include="..\src\Ntity\pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Common\connection.h" />
-    <ClInclude Include="..\src\Common\enums.h" />
-    <ClInclude Include="..\src\Common\Log.h" />
-    <ClInclude Include="..\src\Common\networkmessage.h" />
-    <ClInclude Include="..\src\Common\pch.h" />
-    <ClInclude Include="..\src\Common\protocol.h" />
+    <ClCompile Include="..\src\Ntity\engine.cpp" />
+    <ClCompile Include="..\src\Ntity\Graphics\renderingengine.cpp" />
+    <ClCompile Include="..\src\Ntity\log.cpp" />
+    <ClCompile Include="..\src\Ntity\NtNet\connection.cpp" />
+    <ClCompile Include="..\src\Ntity\NtNet\networkmessage.cpp" />
+    <ClCompile Include="..\src\Ntity\NtNet\protocol.cpp" />
+    <ClCompile Include="..\src\Ntity\NtNet\serverengine.cpp" />
+    <ClCompile Include="..\src\Ntity\pch.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="vendor\gl3w.vcxproj">
+      <Project>{a5be06b9-dea8-4137-a68a-9c439cd555fd}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

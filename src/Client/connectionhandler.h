@@ -1,6 +1,6 @@
 #pragma once
 
-#include "connection.h"
+#include <Ntity/NtNet/connection.h>
 
 class ConnectionHandler
 {
@@ -14,7 +14,7 @@ public:
 
 private:
 	boost::asio::io_service io_service;
-	Connection_ptr activeConnection;
+	Ntity::NtNet::Connection_ptr activeConnection;
 	std::string address;
 	uint16_t port;
 };

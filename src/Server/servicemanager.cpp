@@ -1,4 +1,4 @@
-#include "pch.h"
+#include <Ntity/pch.h>
 #include "servicemanager.h"
 
 bool ServiceManager::start()
@@ -7,9 +7,7 @@ bool ServiceManager::start()
 		return false;
 
 	N_DEBUG("Service manager is started");
-	io_service.run();
-
-	return true;
+	return running = true;
 }
 
 bool ServiceManager::stop()
@@ -22,5 +20,14 @@ bool ServiceManager::stop()
 	N_DEBUG("Service manager stopped");
 	services.clear();
 
+	return true;
+}
+
+bool ServiceManager::poll()
+{
+	if (!running)
+		return false;
+
+	io_service.poll();
 	return true;
 }

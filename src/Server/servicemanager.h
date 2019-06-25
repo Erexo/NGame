@@ -14,6 +14,7 @@ public:
 	
 	bool start();
 	bool stop();
+	bool poll();
 
 	inline bool isRunning() { return running; }
 

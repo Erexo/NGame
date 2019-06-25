@@ -59,8 +59,11 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include;$(ProjectDir)..\src</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>Ntity/pch.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -78,8 +81,11 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(NGAME_SDK)\boost_1_70;$(ProjectDir)..\src\Common;$(NGAME_SDK)\spdlog\include;$(ProjectDir)..\src</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeaderFile>Ntity/pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -92,19 +98,20 @@
     </BuildLog>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Server\main.cpp" />
+    <ClCompile Include="..\src\Server\nserver.cpp" />
     <ClCompile Include="..\src\Server\serverprotocol.cpp" />
     <ClCompile Include="..\src\Server\service.cpp" />
     <ClCompile Include="..\src\Server\servicemanager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\Server\nserver.h" />
     <ClInclude Include="..\src\Server\serverprotocol.h" />
     <ClInclude Include="..\src\Server\service.h" />
     <ClInclude Include="..\src\Server\servicemanager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Common.vcxproj">
-      <Project>{69b8cba5-eddb-4968-b667-0796e861e341}</Project>
+    <ProjectReference Include="Ntity.vcxproj">
+      <Project>{75c09e5a-896e-4988-9bd4-d97c59c2d89e}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

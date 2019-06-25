@@ -1,6 +1,8 @@
-#include "pch.h"
+#include <Ntity/pch.h>
+#include <Ntity/NtNet/enums.h>
 #include "clientprotocol.h"
-#include "enums.h"
+
+using namespace Ntity::NtNet;
 
 void ClientProtocol::parsePacket(NetworkMessage& msg)
 {

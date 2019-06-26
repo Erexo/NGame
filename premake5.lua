@@ -13,30 +13,28 @@ workspace "NGame"
 -- Systems
 	system "windows"
 		systemversion "latest"
-		defines 
-		{
-			"NG_WINDOWS"
-		}
+		--defines 
+		--{
+		--	"NG_WINDOWS"
+		--}
 
 -- Configurations
 	configuration "Debug"
 		runtime "Debug"
 		symbols "on"
-		defines
-		{
-			"__ERROR_LOG__",
-			"__TRACE_LOG__",
-			"NG_DEBUG"
-		}
+		--defines
+		--{
+		--	"NG_DEBUG"
+		--}
 		
 	configuration "Release"
 		runtime "Release"
 		optimize "on"
 		flags { "LinkTimeOptimization" }
-		defines
-		{
-			"NG_RELEASE"
-		}
+		--defines
+		--{
+		--	"NG_RELEASE"
+		--}
 
 -- Actions
 	newaction
@@ -53,6 +51,7 @@ workspace "NGame"
 	
 	includes = 
 	{
+		["local"]	= "src/",
 		["boost"] 	= sdk .. "/boost_1_70",
 		["gl3w"]	= sdk .. "/gl3w/include",
 		["GLFW"]	= sdk .. "/GLFW/include",
@@ -65,35 +64,49 @@ workspace "NGame"
 		["GLFW"] 	= sdk .. "/GLFW/lib64"
 	}
 	
+	pch = 
+	{
+		["name"] = "Ntity/pch.h", 
+		["path"] = includes["local"] .. "Ntity/pch.cpp"
+	}
+	
 	if not sdk then
 		error("NGAME_SDK env variable is not defined.")
 	end
 	
 --[[ PROJECTS ]]--
-project "Common"
+project "Ntity"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
 
-	pchheader "pch.h"
-	pchsource "src/Common/pch.cpp"
+	pchheader (pch["name"])
+	pchsource (pch["path"])
 	
 	files
 	{
-		"src/Common/**.h",
-		"src/Common/**.cpp"
+		"src/Ntity/*.h",
+		"src/Ntity/*.cpp",
+		"src/Ntity/Graphics/*.h",
+		"src/Ntity/Graphics/*.cpp",
+		"src/Ntity/NtNet/*.h",
+		"src/Ntity/NtNet/*.cpp"
 	}
 
 	includedirs
 	{
 		includes["boost"],
-		includes["spdlog"]
+		includes["spdlog"],
+		includes["local"]
 	}
 
 project "NServer"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
+
+	pchheader (pch["name"])
+	pchsource (pch["path"])
 	
 	files
 	{
@@ -105,7 +118,7 @@ project "NServer"
 	{
 		includes["boost"],
 		includes["spdlog"],
-		"src/Common"
+		includes["local"]
 	}
 	
 	libdirs 
@@ -115,13 +128,16 @@ project "NServer"
 	
 	links
 	{
-		"Common"
+		"Ntity"
 	}
 
 project "NClient"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
+
+	pchheader (pch["name"])
+	pchsource (pch["path"])
 	
 	files 
 	{
@@ -135,7 +151,7 @@ project "NClient"
 		includes["gl3w"],
 		includes["GLFW"],
 		includes["spdlog"],
-		"src/Common"
+		includes["local"]
 	}
 	
 	libdirs 
@@ -146,7 +162,7 @@ project "NClient"
 	
 	links
 	{
-		"Common",
+		"Ntity",
 		"gl3w",
 		"glfw3.lib"
 	}
